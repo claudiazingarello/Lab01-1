@@ -34,7 +34,17 @@ public class FXMLController {
 
     @FXML
     void doInsert(ActionEvent event) {
-    	// TODO
+    	
+    	txtResult.clear();
+    	String parolaInserita = txtParola.getText();
+    	parolaInserita = parolaInserita.trim();
+    		if (parolaInserita.length() == 0)
+    			elenco.addParola(parolaInserita);
+
+    		else {
+    			txtResult.appendText("Errone nell'inserimento");
+    		}
+    	
     }
 
     @FXML
