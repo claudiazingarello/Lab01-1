@@ -42,10 +42,18 @@ public class FXMLController {
     	
     	//Pulisco l'area del risultato
     	txtResult.clear();
+    	txtPrestazioni.clear();
+    	
+    	//Faccio partire il timer
+    	double inizio = System.nanoTime();
     	
     	//Prendo la parola inserita dalla casella
     	String parolaInserita = txtParola.getText();
+    	
+    	//Interrompo il timer
+    	long fine = System.nanoTime();
     	parolaInserita = parolaInserita.trim();
+    
     	
     		if (parolaInserita.length() != 0) {
     			//Se la parola inserita e' valida, si inserisce nell'elenco
@@ -56,6 +64,8 @@ public class FXMLController {
     			}
     			
     			txtResult.setText(risultato);
+    			
+    			txtPrestazioni.setText("Tempo di esecuzione:\n" + (fine-inizio)/1e9 + "secondi");
     			
     		}
     		else 
@@ -68,7 +78,29 @@ public class FXMLController {
    
     @FXML
     void doCancella(ActionEvent event) {
-
+    	//faccio partire il timer
+    	double inizio = System.nanoTime();
+    	
+    	String parolaSelezionata = txtResult.getSelectedText();
+    	
+    	//interrompo il timer
+    	double fine = System.nanoTime();
+    	
+    	if (parolaSelezionata != null) {
+    		elenco.cancellaParola(parolaSelezionata);
+    		
+    		String risultato = "";
+    		for (String p : elenco.getElenco()) {
+    			risultato += p + "\n";
+    		}
+    		
+    		txtResult.setText(risultato);
+    		txtPrestazioni.setText("Tempo di esecuzione:\n" + (fine-inizio)/ 1e9 + "secondi");
+    	}
+    	else {
+    		txtPrestazioni.clear();
+    		txtPrestazioni.setText("Seleziona una parola!");
+    	}
     }
     
     @FXML
